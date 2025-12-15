@@ -20,3 +20,6 @@
 # Temporary files
 *.tmp
 *.temp
+
+# Code review reports
+CODE_REVIEW_*.md

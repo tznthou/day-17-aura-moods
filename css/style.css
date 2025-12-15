@@ -26,6 +26,14 @@
   --ui-border: rgba(255, 255, 255, 0.1);
   --ui-hover: rgba(255, 255, 255, 0.1);
   --accent: rgba(255, 255, 255, 0.9);
+
+  /* Z-Index Scale [M01] */
+  --z-background: -1;
+  --z-content: 1;
+  --z-grain: 10;
+  --z-modal: 100;
+  --z-modal-close: 101;
+  --z-toast: 200;
 }
 
 /* OKLCH overrides for modern browsers */
@@ -88,7 +96,7 @@ body {
 .aura-background {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: var(--z-background);
   overflow: hidden;
   background: var(--bg-base);
   transition: background-color 0.8s ease;
@@ -181,7 +189,7 @@ body {
 .grain-overlay {
   position: fixed;
   inset: 0;
-  z-index: 1000;
+  z-index: var(--z-grain);
   pointer-events: none;
   opacity: var(--grain-opacity);
   background-image: url('../assets/grain.svg');
@@ -198,7 +206,7 @@ body {
    =========================================== */
 .main-content {
   position: relative;
-  z-index: 1;
+  z-index: var(--z-content);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -504,7 +512,7 @@ body {
 .fullscreen-modal {
   position: fixed;
   inset: 0;
-  z-index: 2000;
+  z-index: var(--z-modal);
   cursor: pointer;
 }
 
@@ -596,7 +604,7 @@ body {
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-  z-index: 2001;
+  z-index: var(--z-modal-close);
 }
 
 .btn-close:hover {
@@ -643,7 +651,7 @@ body {
   font-size: 0.875rem;
   font-weight: 500;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  z-index: 3000;
+  z-index: var(--z-toast);
   opacity: 0;
   transition: all 0.3s ease;
 }

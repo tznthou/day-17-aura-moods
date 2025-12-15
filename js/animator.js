@@ -3,8 +3,26 @@
  * 控制動畫速度、低效能模式、暫停/播放
  */
 
-const root = document.documentElement;
-const auraBg = document.getElementById('aura-bg');
+// ==========================================
+// Lazy DOM References [H02]
+// 避免頂層執行 DOM 查詢導致初始化時序問題
+// ==========================================
+let _root = null;
+let _auraBg = null;
+
+function getRoot() {
+  if (!_root) {
+    _root = document.documentElement;
+  }
+  return _root;
+}
+
+function getAuraBg() {
+  if (!_auraBg) {
+    _auraBg = document.getElementById('aura-bg');
+  }
+  return _auraBg;
+}
 
 let currentSpeed = 1;
 let isPaused = false;
@@ -13,15 +31,26 @@ let isLowPerf = false;
 /**
  * 設定動畫速度
  * @param {number} speed - 速度倍率 (0-2)
+ * @returns {number} 實際設定的速度
  */
 export function setSpeed(speed) {
+  // 型別驗證 [M03]
+  const parsedSpeed = Number(speed);
+  if (typeof speed !== 'number' || isNaN(parsedSpeed)) {
+    console.warn(`setSpeed: Invalid speed "${speed}", using default 1`);
+    speed = 1;
+  } else {
+    speed = parsedSpeed;
+  }
+
+  // 範圍限制
   currentSpeed = Math.max(0, Math.min(2, speed));
 
   if (currentSpeed === 0) {
     pause();
   } else {
     if (isPaused) play();
-    root.style.setProperty('--speed-multiplier', currentSpeed);
+    getRoot().style.setProperty('--speed-multiplier', currentSpeed);
   }
 
   return currentSpeed;
@@ -39,7 +68,10 @@ export function getSpeed() {
  */
 export function pause() {
   isPaused = true;
-  auraBg?.classList.add('paused');
+  const auraBg = getAuraBg();
+  if (auraBg) {
+    auraBg.classList.add('paused');
+  }
 }
 
 /**
@@ -47,7 +79,10 @@ export function pause() {
  */
 export function play() {
   isPaused = false;
-  auraBg?.classList.remove('paused');
+  const auraBg = getAuraBg();
+  if (auraBg) {
+    auraBg.classList.remove('paused');
+  }
 }
 
 /**
@@ -109,7 +144,7 @@ export function isLowPerfMode() {
  * @param {number} opacity - 0-1
  */
 export function setGrainOpacity(opacity) {
-  root.style.setProperty('--grain-opacity', opacity);
+  getRoot().style.setProperty('--grain-opacity', opacity);
 }
 
 /**

@@ -211,6 +211,41 @@ day-17-aura-moods/
 
 ---
 
+## 程式碼審查狀態
+
+> 最後更新：2025-12-16
+
+### ✅ 已修復（Critical & High）
+
+| 編號 | 問題 | 修復內容 |
+|------|------|----------|
+| **C01** | XSS 防禦 | 新增 `sanitizeText()` 函式，所有 `textContent` 輸入經過淨化 |
+| **C02** | 強制 Reflow | 移除 `void offsetWidth`，改用雙重 `requestAnimationFrame` |
+| **H01** | Toast 無障礙 | 加入 `role="status"`, `aria-live="polite"`, `aria-atomic="true"` |
+| **H02** | DOM 初始化時序 | animator.js 改用 lazy initialization，避免頂層 DOM 查詢 |
+| **H03** | 複製失敗處理 | 新增 `downloadAsFile()` 作為剪貼簿失敗的備援方案 |
+| **H04** | 記憶體洩漏 | 新增 `toastHideTimeout` 追蹤內層 timeout，統一清理 |
+
+### ✅ 已修復（Medium）
+
+| 編號 | 問題 | 修復內容 |
+|------|------|----------|
+| **M01** | z-index 管理 | 統一定義 `--z-*` CSS 變數，6 處引用改用變數 |
+| **M03** | 型別檢查 | `setSpeed()` 加入型別驗證與範圍限制 |
+
+### ⏭️ 可選修復（Low Priority）
+
+| 編號 | 問題 | 狀態 |
+|------|------|------|
+| M02 | 動畫時間硬編碼 | 暫緩（影響低） |
+| M04 | 手機版滑動提示 | 暫緩（UX 增強） |
+| L01 | console.log 未移除 | 暫緩（僅 1 行） |
+| L02 | CSS 註解不一致 | 暫緩（純風格） |
+| L03 | 鍵盤按鍵魔術字串 | 暫緩（僅 3 處） |
+| L04 | help.html 內嵌 CSS | 暫緩（獨立頁面） |
+
+---
+
 ## 隨想
 
 ### 氛圍的價值

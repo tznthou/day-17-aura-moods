@@ -211,6 +211,41 @@ This tool uses OKLCH color space for more natural gradient transitions:
 
 ---
 
+## Code Review Status
+
+> Last Updated: 2025-12-16
+
+### ✅ Fixed (Critical & High)
+
+| ID | Issue | Fix |
+|----|-------|-----|
+| **C01** | XSS Prevention | Added `sanitizeText()` function, all `textContent` inputs sanitized |
+| **C02** | Forced Reflow | Removed `void offsetWidth`, replaced with double `requestAnimationFrame` |
+| **H01** | Toast Accessibility | Added `role="status"`, `aria-live="polite"`, `aria-atomic="true"` |
+| **H02** | DOM Init Timing | animator.js uses lazy initialization, avoiding top-level DOM queries |
+| **H03** | Copy Failure Handling | Added `downloadAsFile()` as fallback when clipboard fails |
+| **H04** | Memory Leak | Added `toastHideTimeout` to track inner timeout, unified cleanup |
+
+### ✅ Fixed (Medium)
+
+| ID | Issue | Fix |
+|----|-------|-----|
+| **M01** | z-index Management | Unified `--z-*` CSS variables, 6 references updated |
+| **M03** | Type Checking | `setSpeed()` now validates type and clamps range |
+
+### ⏭️ Optional Fixes (Low Priority)
+
+| ID | Issue | Status |
+|----|-------|--------|
+| M02 | Hardcoded animation durations | Deferred (low impact) |
+| M04 | Mobile scroll hint | Deferred (UX enhancement) |
+| L01 | console.log not removed | Deferred (only 1 line) |
+| L02 | Inconsistent CSS comments | Deferred (style only) |
+| L03 | Magic string for keys | Deferred (only 3 uses) |
+| L04 | help.html inline CSS | Deferred (standalone page) |
+
+---
+
 ## Thoughts
 
 ### The Value of Ambiance
